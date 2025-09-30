@@ -6,25 +6,25 @@ import java.util.List;
 public class FacteursPremiers {
     public List<Integer> generate(int nombre) {
         List<Integer> list = new ArrayList<>();
-        if (nombre == 1) {
-            return list;
+
+        // Diviser par 2 jusqu'à ce que ce ne soit plus divisible
+        while (nombre % 2 == 0) {
+            list.add(2);
+            nombre /= 2;
         }
-        else {
-            if (nombre == 2) {
-                list.add(2);
-                return list;
-            }
-            else {
-                if (nombre == 6) {
-                    list.add(2);
-                    list.add(3);
-                    return list;
-                }
-                list.add(2);
-                list.add(2);
-                list.add(2);
+
+        for (int i = 3; i * i <= nombre; i += 2) {
+            while (nombre % i == 0) {
+                list.add(i);
+                nombre /= i;
             }
         }
+
+        // Si nombre est toujours > 2, alors c'est un nombre premier
+        if (nombre > 2) {
+            list.add(nombre);
+        }
+
         return list;
     }
 }
